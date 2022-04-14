@@ -37,3 +37,4 @@ export interface RegistroAsistencia{
     Unidad: string,
     docenteRA: Docente
 }
+//a
