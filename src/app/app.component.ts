@@ -1,5 +1,6 @@
 import { Component } from '@angular/core';
 import * as datos from './ts/Asistencia'; 
+import {FormGroup,FormControl,Validators} from '@angular/forms';
 @Component({
   selector: 'app-root',
   templateUrl: './app.component.html',
@@ -58,7 +59,8 @@ export class AppComponent {
     docenteRA: this.docente,
     horaInicio: "08:00:00",
     horaFin: "13:00:00",
-    Unidad: "I"
+    Unidad: "I",
+    boton:false
   }
   sesion2: datos.RegistroAsistencia = {
     codRA: "S2",
@@ -67,7 +69,8 @@ export class AppComponent {
     docenteRA: this.docente,
     horaInicio: "08:00:00",
     horaFin: "13:00:00",
-    Unidad: "I"
+    Unidad: "I",
+    boton:false
   }
   sesion3: datos.RegistroAsistencia = {
     codRA: "S3",
@@ -76,7 +79,8 @@ export class AppComponent {
     docenteRA: this.docente,
     horaInicio: "08:00:00",
     horaFin: "13:00:00",
-    Unidad: "I"
+    Unidad: "II",
+    boton:false
   }
   
   //listas de alumnos, asistencias, registros de asistencias
@@ -85,19 +89,32 @@ export class AppComponent {
   public asistencias: datos.Asistencia[] = [];
   public registroAsistencias: datos.RegistroAsistencia[] = [this.sesion1,this.sesion2,this.sesion3];
   aux:number = 0;
+  myform: any;
   //metodos
+  btn:boolean = false;
   getNombreDocente():string {
     return this.docente.nombreD + " " + this.docente.apellidoPD + " " + this.docente.apellidoMD
   };
   cargarRegistro(i:number): void{
     this.aux = i;
+    this.btn = this.registroAsistencias[i].boton;
   }
   mostrarFecha(){
     return this.registroAsistencias[this.aux].fechaRA;
   }
+  posAlumno(alumno:datos.Alumno, listaAsistencia: datos.Asistencia[],fecha:string):number{
+    for(let i = 0 ; i < listaAsistencia.length;i++){
+      if(listaAsistencia[i].alumnoAsistencia == alumno && listaAsistencia[i].fechaAsistencia == fecha){
+        return i;
+      }
+    } 
+    return -1;
+  }
   guardarAsistencia(i:number,j:number):void{
-    if(this.asistencias.includes(this.asistencias[i]) ){
-      this.asistencias[i].estado = this.rpta[j];
+    console.log(this.mostrarFecha())
+    let pos = this.posAlumno(this.alumnos[i],this.asistencias,this.mostrarFecha());
+    if(this.asistencias.includes( this.asistencias[pos]) && this.asistencias[pos].fechaAsistencia ==  this.mostrarFecha() ){
+      this.asistencias[pos].estado = this.rpta[j];
     }
     else{
       this.asistencias.push({
@@ -107,7 +124,11 @@ export class AppComponent {
         estado: this.rpta[j],
     })
     }
-    console.log(this.asistencias);
-    console.log(this.mostrarFecha());
+    console.table(this.asistencias);
   }
+  actualizar(n:number){
+    this.registroAsistencias[n].boton = true;
+    this.btn = this.registroAsistencias[n].boton;
+  }
+  //no eres tu soy yo
 }

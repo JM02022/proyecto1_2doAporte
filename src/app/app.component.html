@@ -28,7 +28,7 @@
       <form class="d-flex">
         <ul class="navbar-nav me-auto mb-2 mb-lg-0">
           <li class="nav-link active" aria-current="page" href="#">
-            <h6 class="nav-link active">{{getNombreDocente()}}<img src="https://cdn-icons.flaticon.com/png/512/5001/premium/5001382.png?token=exp=1649377853~hmac=d560b17ae2ba3bb6de5c3f92fcb27d22" alt="" width="40" height="40"></h6>
+            <h6 class="nav-link active">{{getNombreDocente()}}<img src="https://cdn-icons-png.flaticon.com/512/2643/2643395.png" alt="Icono docente" width="40" height="40"></h6>
           </li>
         </ul>   
       </form>
@@ -65,8 +65,9 @@
 </div>
 <!-- Modal -->
 <div class="modal fade" id="staticBackdrop" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+  <form>
   <div class="modal-dialog modal-xl">
-    <div class="modal-content">
+      <div class="modal-content">
       <div class="modal-header">
         <h5 class="modal-title" id="staticBackdropLabel">Registro de asistencia</h5>
         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
@@ -103,7 +104,7 @@
           <thead>
             <tr>
               <th scope="col">#</th>
-              <th scope="col">Nombre</th>
+              <th scope="col">Nombre</th> 
               <th scope="col">Apellido Paterno</th>
               <th scope="col">Apellido Materno</th>
               <th scope="col">Asistencia</th>
@@ -117,19 +118,20 @@
               <td>{{alum.nombreA}} </td>
               <td>{{alum.apellidoPA}} </td>
               <td>{{alum.apellidoMA}} </td>
-              <td>
-                <div class="form-check form-check-inline">
-                  <input class="form-check-input" type="radio" name="flexRadioDefault" id="flexRadioDefault1" (click)="guardarAsistencia(j,0)"  >
-                  <label class="form-check-label" for="flexRadioDefault11">Asistio</label>
-                </div>
-                <div class="form-check form-check-inline">
-                  <input class="form-check-input" type="radio" name="flexRadioDefault" id="flexRadioDefault1" (click)="guardarAsistencia(j,1)" >
-                  <label class="form-check-label" for="flexRadioDefault12">Tarde</label>
-                </div>
-                <div class="form-check form-check-inline">
-                  <input class="form-check-input" type="radio" name="flexRadioDefault" id="flexRadioDefault1" (click)="guardarAsistencia(j,2)" >
-                  <label class="form-check-label" for="flexRadioDefault13">No asistio</label>
-                </div>
+              <td><!--[src]="img"-->
+                
+                  <div class="form-check form-check-inline">
+                    <input class="form-check-input" type="radio" [name]="j" (click)="guardarAsistencia(j,0) "  >
+                    <label class="form-check-label" [for]="j">Asistio</label>
+                  </div>
+                  <div class="form-check form-check-inline">
+                    <input class="form-check-input" type="radio" [name]="j"  (click)="guardarAsistencia(j,1)" >
+                    <label class="form-check-label" [for]="j">Tarde</label>
+                  </div>
+                  <div class="form-check form-check-inline">
+                    <input class="form-check-input" type="radio" [name]="j"  (click)="guardarAsistencia(j,2)" >
+                    <label class="form-check-label" [for]="j">No asistio</label>
+                  </div>
               </td>
               <td>No</td>
               <td><img src="https://cdn-icons-png.flaticon.com/512/1154/1154987.png?w=740" alt="foto alumno" width="50px" height="50px"></td>
@@ -138,9 +140,10 @@
         </table>
       </div>
       <div class="modal-footer" >
-        <button type="button" class="btn btn-success" data-bs-dismiss="modal" >Actualizar</button>
+        <button type="reset" class="btn btn-success" data-bs-dismiss="modal" [disabled]="btn">Actualizar</button><!--(click)="actualizar(aux)" bloquea radiobutton-->
         <button type="button" class="btn btn-danger" data-bs-dismiss="modal">Cerrar</button>
       </div>
     </div>
   </div>
+</form>
 </div>

@@ -35,6 +35,7 @@ export interface RegistroAsistencia{
     horaInicio: string,
     horaFin: string,
     Unidad: string,
-    docenteRA: Docente
+    docenteRA: Docente,
+    boton:boolean 
 }
 //a
